@@ -10,7 +10,7 @@ pipeline {
             stage('Clean') {
                 steps {
                 dir('edge') {
-                    bat "mvn clean"
+                    bash "mvn clean"
                 }
             }
         }
@@ -19,7 +19,7 @@ pipeline {
                 steps {
                     dir('edge') {
                     println "Predeployment of Caches "
-                    bat "mvn apigee-config:caches " +
+                    bash "mvn apigee-config:caches " +
                             "    -Papigee -Denv=${params.apigee_env} -Dorg=${params.apigee_org} " +
                             "    -Dusername=${params.apigee_user} " +
                             "    -Dpassword=${params.apigee_pwd}"
@@ -32,7 +32,7 @@ pipeline {
                 steps {
                     dir('edge') {
                     println "Predeployment of targetservers "
-                    bat "mvn apigee-config:targetservers " +
+                    bash "mvn apigee-config:targetservers " +
                             "    -Papigee -Denv=${params.apigee_env} -Dorg=${params.apigee_org} " +
                             "    -Dusername=${params.apigee_user} " +
                             "    -Dpassword=${params.apigee_pwd}"
@@ -45,7 +45,7 @@ pipeline {
                 steps {
                     dir('edge') {
                     println "Predeployment of keyvaluemaps  "
-                    bat "mvn apigee-config:keyvaluemaps " +
+                    bash "mvn apigee-config:keyvaluemaps " +
                             "    -Papigee -Denv=${params.apigee_env} -Dorg=${params.apigee_org} " +
                             "    -Dusername=${params.apigee_user} " +
                             "    -Dpassword=${params.apigee_pwd}"
@@ -57,7 +57,7 @@ pipeline {
             stage('Build proxy bundle') {
                 steps {
                     dir('edge') {
-                    bat "mvn package -Papigee -Denv=${params.apigee_env} -Dorg=${params.apigee_org}"
+                    bash "mvn package -Papigee -Denv=${params.apigee_env} -Dorg=${params.apigee_org}"
 
                 }
             }
