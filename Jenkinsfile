@@ -9,7 +9,7 @@ pipeline {
     stages {
             stage('Clean') {
                 steps {
-                dir('HelloWorld') {
+                dir('secondrepo') {
                     bat "mvn clean"
                 }
             }
@@ -17,7 +17,7 @@ pipeline {
 
             stage('Pre-Deployment Configuration - Caches') {
                 steps {
-                    dir('HelloWorld') {
+                    dir('secondrepo') {
                     println "Predeployment of Caches "
                     bat "mvn apigee-config:caches " +
                             "    -Papigee -Denv=${params.apigee_env} -Dorg=${params.apigee_org} " +
@@ -30,7 +30,7 @@ pipeline {
 
             stage('Pre-Deployment Configuration - targetservers') {
                 steps {
-                    dir('HelloWorld') {
+                    dir('secondrepo') {
                     println "Predeployment of targetservers "
                     bat "mvn apigee-config:targetservers " +
                             "    -Papigee -Denv=${params.apigee_env} -Dorg=${params.apigee_org} " +
@@ -43,7 +43,7 @@ pipeline {
 
             stage('Pre-Deployment Configuration - keyvaluemaps ') {
                 steps {
-                    dir('HelloWorld') {
+                    dir('secondrepo') {
                     println "Predeployment of keyvaluemaps  "
                     bat "mvn apigee-config:keyvaluemaps " +
                             "    -Papigee -Denv=${params.apigee_env} -Dorg=${params.apigee_org} " +
@@ -56,7 +56,7 @@ pipeline {
 
             stage('Build proxy bundle') {
                 steps {
-                    dir('HelloWorld') {
+                    dir('secondrepo') {
                     bat "mvn package -Papigee -Denv=${params.apigee_env} -Dorg=${params.apigee_org}"
 
                 }
@@ -65,7 +65,7 @@ pipeline {
 
             stage('Deploy proxy bundle') {
                 steps {
-                    dir('HelloWorld') {
+                    dir('secondrepo') {
                     bat "mvn apigee-enterprise:deploy -Papigee -Denv=${params.apigee_env} -Dorg=${params.apigee_org} -Dusername=${params.apigee_user} -Dpassword=${params.apigee_pwd}"
                 }
             }
